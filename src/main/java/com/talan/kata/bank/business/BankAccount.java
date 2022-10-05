@@ -9,12 +9,16 @@ import java.util.List;
 import com.talan.kata.bank.exception.UnsatisfiedAmountException;
 import com.talan.kata.bank.model.Order;
 
+import lombok.Getter;
+
 public class BankAccount{
 
+	
 	private Long id;
 	private Long clientId;
-	private LocalDateTime creationDate;// la date de quoi
-	private BigDecimal amount; // BigDecimen is better
+	private LocalDateTime creationDate;
+	private BigDecimal amount;
+	@Getter
 	private BigDecimal balance;
 	List<Order> history = new ArrayList<>();
 
