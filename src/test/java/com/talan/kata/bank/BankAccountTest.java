@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
@@ -18,8 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.mockito.MockedStatic;
 
-import com.talan.kata.bank.business.BankAccount;
-import com.talan.kata.bank.exception.UnsatisfiedAmountException;
+import com.talan.kata.bank.model.BankAccount;
 
 
 
@@ -33,7 +31,7 @@ public class BankAccountTest{
 	 */
 	@Test
     @DisplayName("Check account Sttatement after positive deposite")
-	public void checkAccountStatement_AfterPositiveDeposit() throws UnsatisfiedAmountException{
+	public void checkAccountStatement_AfterPositiveDeposit() throws RuntimeException{
 
 		LocalDateTime date = LocalDateTime.of(2011, 1, 8, 19, 35, 30);
 
@@ -42,12 +40,18 @@ public class BankAccountTest{
 	    
 	    BankAccount ba = new BankAccount(1L, 1L, date, amount, balance);
 	    
-	    ba.deposite(new BigDecimal("4000"), LocalDate.now());
-		ba.deposite(new BigDecimal("2000"), LocalDate.now());
+	    ba.deposite(new BigDecimal("4000"));
+		ba.deposite(new BigDecimal("2000"));
 		
 		BigDecimal bd1 = new BigDecimal (8000);
 
-		assertTrue(bd1.compareTo(ba.getBalance()) == 0); 
+		//assertTrue(bd1.compareTo(ba.getBalance()) == 0); 
+		//assertThat(bd1).isEqualTo(ba.getBalance());
+		
+	   /* BigDecimal actual = new BigDecimal("8.0");
+	    assertThat(actual).isEqualByComparingTo(new BigDecimal("8.00"));
+	    assertThat(actual).isEqualByComparingTo("8.00");*/
+
 	}
 	
 	@Test
@@ -61,8 +65,8 @@ public class BankAccountTest{
 	    
 	    BankAccount ba = new BankAccount(1L, 1L, date, amount, balance);
 		
-	    Exception exception = assertThrows(UnsatisfiedAmountException.class, () -> {
-		    ba.deposite(new BigDecimal("-4000"), LocalDate.now());
+	    Exception exception = assertThrows(RuntimeException.class, () -> {
+		    ba.deposite(new BigDecimal("-4000"));
 	    });
 
 	    String expectedMessage = "You can't deposite a negatif amount !";
@@ -80,7 +84,7 @@ public class BankAccountTest{
 	   */
 	  @Test
       @DisplayName("Check Account Statement After normal withdraw")
-	  public void checkAccountStatement_AfterNormalWithdraw() throws UnsatisfiedAmountException{
+	  public void checkAccountStatement_AfterNormalWithdraw() throws RuntimeException{
 			
 			LocalDateTime date = LocalDateTime.of(2011, 1, 8, 19, 35, 30);
 
@@ -89,8 +93,8 @@ public class BankAccountTest{
 		    
 		    BankAccount ba = new BankAccount(1L, 1L, date, amount, balance);
 
-		    ba.withdraw(new BigDecimal("4000"), LocalDate.now());
-			ba.withdraw(new BigDecimal("2000"), LocalDate.now());
+		    ba.withdraw(new BigDecimal("4000"));
+			ba.withdraw(new BigDecimal("2000"));
 			
 			BigDecimal bd1 = new BigDecimal (2000);
 
@@ -109,8 +113,8 @@ public class BankAccountTest{
 		    
 		    BankAccount ba = new BankAccount(1L, 1L, date, amount, balance);
 			
-		    Exception exception = assertThrows(UnsatisfiedAmountException.class, () -> {
-			    ba.withdraw(new BigDecimal("4000"), LocalDate.now());
+		    Exception exception = assertThrows(RuntimeException.class, () -> {
+			    ba.withdraw(new BigDecimal("4000"));
 		    });
 
 		    String expectedMessage = "Your amount order is greater than your balance !";
@@ -127,7 +131,7 @@ public class BankAccountTest{
 	   */
 	  @Test
       @DisplayName("Check Account Statement History")
-	  public void checkAccountStatementHistory() throws UnsatisfiedAmountException {
+	  public void checkAccountStatementHistory() throws RuntimeException {
 		  
 		  	LocalDateTime date1 = LocalDateTime.of(2011, 1, 8, 19, 35, 30);
 		  	LocalDateTime date2 = LocalDateTime.of(2012, 1, 8, 19, 35, 30);
@@ -140,11 +144,11 @@ public class BankAccountTest{
 
 		    BankAccount ba = new BankAccount(1L, 1L, date1, amount, balance);
 		    
-		    ba.withdraw(new BigDecimal("4000"), LocalDate.now());
-		    ba.deposite(new BigDecimal("5000"), LocalDate.now());
-		    ba.withdraw(new BigDecimal("3000"), LocalDate.now());
-		    ba.deposite(new BigDecimal("5000"), LocalDate.now());
-		    ba.withdraw(new BigDecimal("3000"), LocalDate.now());
+		    ba.withdraw(new BigDecimal("4000"));
+		    ba.deposite(new BigDecimal("5000"));
+		    ba.withdraw(new BigDecimal("3000"));
+		    ba.deposite(new BigDecimal("5000"));
+		    ba.withdraw(new BigDecimal("3000"));
 
 		    try (MockedStatic<LocalDateTime> mocked = mockStatic(LocalDateTime.class, withSettings().defaultAnswer(Answers.CALLS_REAL_METHODS))) {
 
