@@ -186,20 +186,25 @@ public class BankAccountTest{
 		       // then
 		       assertThat(bankAccount.getHistory()).hasSize(5);
 		        
-		       assertThat(bankAccount.getHistory().get(0).getAmount()).isEqualTo(new BigDecimal("4000"));
+		       assertThat(bankAccount.getHistory().get(0).getAmount()).isEqualTo(BigDecimal.valueOf(4000));
 		       assertThat(bankAccount.getHistory().get(0).getDateOfOrder()).isEqualTo(firstDate);
+		       assertThat(bankAccount.getHistory().get(0).getBalance()).isEqualTo(BigDecimal.valueOf(16000));
 
-		       assertThat(bankAccount.getHistory().get(1).getAmount()).isEqualTo(new BigDecimal("5000"));
+		       assertThat(bankAccount.getHistory().get(1).getAmount()).isEqualTo(BigDecimal.valueOf(5000));
 		       assertThat(bankAccount.getHistory().get(1).getDateOfOrder()).isEqualTo(secondDate);
+		       assertThat(bankAccount.getHistory().get(1).getBalance()).isEqualTo(BigDecimal.valueOf(21000));
 
-		       assertThat(bankAccount.getHistory().get(2).getAmount()).isEqualTo(new BigDecimal("3000"));
+		       assertThat(bankAccount.getHistory().get(2).getAmount()).isEqualTo(BigDecimal.valueOf(3000));
 		       assertThat(bankAccount.getHistory().get(2).getDateOfOrder()).isEqualTo(thirdDate);
+		       assertThat(bankAccount.getHistory().get(2).getBalance()).isEqualTo(BigDecimal.valueOf(18000));
 
-		       assertThat(bankAccount.getHistory().get(3).getAmount()).isEqualTo(new BigDecimal("8000"));
+		       assertThat(bankAccount.getHistory().get(3).getAmount()).isEqualTo(BigDecimal.valueOf(8000));
 		       assertThat(bankAccount.getHistory().get(3).getDateOfOrder()).isEqualTo(thirdDate);
+		       assertThat(bankAccount.getHistory().get(3).getBalance()).isEqualTo(BigDecimal.valueOf(26000));
 
-		       assertThat(bankAccount.getHistory().get(4).getAmount()).isEqualTo(new BigDecimal("3000"));
+		       assertThat(bankAccount.getHistory().get(4).getAmount()).isEqualTo(BigDecimal.valueOf(3000));
 		       assertThat(bankAccount.getHistory().get(4).getDateOfOrder()).isEqualTo(thirdDate);
+		       assertThat(bankAccount.getHistory().get(4).getBalance()).isEqualTo(BigDecimal.valueOf(23000));
 		       
 		       assertThat(bankAccount.getHistory()).allSatisfy(order -> {
 		    	   assertThat(order.getClientId()).isEqualTo(1L);
