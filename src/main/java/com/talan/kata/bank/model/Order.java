@@ -10,11 +10,14 @@ public class Order {
 	private Long clientId;
 	private LocalDateTime dateOfOrder;
 	private BigDecimal amount;
+	private BigDecimal balance;
+
 	
-	public Order(Long clientId, LocalDateTime dateOfOrder, BigDecimal amount) {
+	public Order(Long clientId, LocalDateTime dateOfOrder, BigDecimal amount, BigDecimal balance) {
 		this.clientId = clientId;
 		this.dateOfOrder = dateOfOrder;
 		this.amount = amount;
+		this.balance = balance;
 	}
 
 	public Long getClientId() {
@@ -25,9 +28,11 @@ public class Order {
 		return dateOfOrder;
 	}
 
-	public BigDecimal getAmount() {
+	public BigDecimal getAmount(){
 		return amount;
 	}
 
-	
+	public BigDecimal getBalance(){
+		return balance;
+	}
 }
